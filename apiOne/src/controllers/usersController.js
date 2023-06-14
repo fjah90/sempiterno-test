@@ -39,7 +39,7 @@ exports.deleteUser = (req, res) => {
     const index = users.findIndex(user => user.id === id);
     if (index !== -1) {
         users.splice(index, 1);
-        res.status(204).send();
+        res.status(200).send('User delete sucess');
     } else {
         res.status(404).send('User not found');
     }
