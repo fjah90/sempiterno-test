@@ -1,4 +1,4 @@
-const Image = require('../services/Image');
+const Image = require('../services/ImageServices');
 
 exports.downloadImage = async (req, res) => {
     const { url, filename } = req.query;
