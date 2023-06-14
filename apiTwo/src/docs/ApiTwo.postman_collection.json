@@ -1,0 +1,38 @@
+{
+	"info": {
+		"_postman_id": "9cb2c746-863c-4807-a0c4-8b06f8b05cba",
+		"name": "ApiTwo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "downloadImage",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/download-image?url=https://empresas.blogthinkbig.com/wp-content/uploads/2019/11/Imagen3-245003649.jpg&filename=prueba",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"download-image"
+					],
+					"query": [
+						{
+							"key": "url",
+							"value": "https://empresas.blogthinkbig.com/wp-content/uploads/2019/11/Imagen3-245003649.jpg"
+						},
+						{
+							"key": "filename",
+							"value": "prueba"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
