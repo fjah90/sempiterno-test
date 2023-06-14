@@ -1,0 +1,16 @@
+{
+  "name": "download-image",
+  "version": "1.0.0",
+  "description": "Descarga de imagenes con Axio",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Node.js",
+    "Express.js",
+    "Axios"
+  ],
+  "author": "Fernando Aponte",
+  "license": "ISC"
+}
