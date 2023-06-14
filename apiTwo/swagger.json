@@ -1,0 +1,72 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "API de descarga de imágenes"
+    },
+    "basePath": "/",
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/download-image": {
+            "get": {
+                "summary": "Descargar y guardar una imagen desde una URL",
+                "description": "Descarga y guarda una imagen desde una URL dada en el servidor local. Devuelve la ruta interna de la imagen guardada en el servidor.",
+                "parameters": [
+                    {
+                        "name": "url",
+                        "in": "query",
+                        "description": "La URL de la imagen que se desea descargar",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "filename",
+                        "in": "query",
+                        "description": "El nombre de archivo que se desea asignar a la imagen descargada",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "La imagen se descargó y guardó con éxito",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "description": "Un mensaje de éxito"
+                                },
+                                "imagePath": {
+                                    "type": "string",
+                                    "description": "La ruta interna de la imagen guardada en el servidor"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error al descargar o guardar la imagen",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "description": "Un mensaje de error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
