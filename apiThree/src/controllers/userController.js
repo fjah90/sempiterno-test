@@ -1,6 +1,8 @@
 const User = require('../services/userServices');
 
-exports.getAllUsers = async (req, res) => {
+const userController = {};
+
+userController.getAllUsers = async (req, res) => {
     try {
         const users = await User.findAll();
         res.status(200).json({ message: 'Sucess', data: users});
@@ -9,7 +11,7 @@ exports.getAllUsers = async (req, res) => {
     }
 };
 
-exports.getUserById = async (req, res) => {
+userController.getUserById = async (req, res) => {
     try {
         const user = await User.findById(req.params.id);
         res.status(200).json({ message: 'Sucess', data: user });
@@ -18,7 +20,7 @@ exports.getUserById = async (req, res) => {
     }
 };
 
-exports.createUser = async (req, res) => {
+userController.createUser = async (req, res) => {
     try {
         const { name, email, password } = req.body;
         const user = new User({ name, email, password });
@@ -29,7 +31,7 @@ exports.createUser = async (req, res) => {
     }
 };
 
-exports.updateUser = async (req, res) => {
+userController.updateUser = async (req, res) => {
     try {
         const { id, name, email, password } = req.body;
         const user = await User.findById(req.params.id);
@@ -51,7 +53,7 @@ exports.updateUser = async (req, res) => {
     }
 };
 
-exports.deleteUser = async (req, res) => {
+userController.deleteUser = async (req, res) => {
     try {
         const user = await User.findById(req.params.id);
 
@@ -61,3 +63,5 @@ exports.deleteUser = async (req, res) => {
         res.status(404).send({ error: error.message });
     }
 };
+
+module.exports = userController;

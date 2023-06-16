@@ -1,6 +1,8 @@
 const Document = require('../services/documentServices');
 
-exports.getAllDocuments = async (req, res) => {
+const documentController = {};
+
+documentController.getAllDocuments = async (req, res) => {
     try {
         const documents = await Document.findAll();
         res.status(200).json({ message: 'Sucess', data: documents });
@@ -9,7 +11,7 @@ exports.getAllDocuments = async (req, res) => {
     }
 };
 
-exports.getDocumentById = async (req, res) => {
+documentController.getDocumentById = async (req, res) => {
     try {
         const document = await Document.findById(req.params.id);
         console.log(document)
@@ -19,7 +21,7 @@ exports.getDocumentById = async (req, res) => {
     }
 };
 
-exports.createDocument = async (req, res) => {
+documentController.createDocument = async (req, res) => {
     try {
         const { title, content } = req.body;
         const document = new Document({ title, content });
@@ -31,7 +33,7 @@ exports.createDocument = async (req, res) => {
 };
 
 
-exports.updateDocument = async (req, res) => {
+documentController.updateDocument = async (req, res) => {
     try {
         const { id, title, content } = req.body;
         const document = await Document.findById(req.params.id);
@@ -50,7 +52,7 @@ exports.updateDocument = async (req, res) => {
     }
 };
 
-exports.deleteDocument = async (req, res) => {
+documentController.deleteDocument = async (req, res) => {
     try {
         const document = await Document.findById(req.params.id);
 
@@ -60,3 +62,5 @@ exports.deleteDocument = async (req, res) => {
         res.status(404).send({ error: error.message });
     }
 };
+
+module.exports = documentController;
