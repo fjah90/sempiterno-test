@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { CRUDMessages } from "sigebi-lib-common";
+import { CRUDMessages } from "src/shared/utils/message.enum";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { HttpStatus } from "@nestjs/common/enums";
@@ -22,12 +22,12 @@ export class UsersService {
       query,
       this.repository,
       queryBuilder,
-      "Id"
+      "id"
     );
   }
 
   async getByIds(id: any) {
-    const value = await this.repository.findOne({ where: { Id: id } });
+    const value = await this.repository.findOne({ where: { id: id } });
     return value
       ? {
           statusCode: HttpStatus.OK,
@@ -44,7 +44,7 @@ export class UsersService {
   }
 
   async createRegistry(dto: UsersDto) {
-    const value = await this.getByIds(dto.Id);
+    const value = await this.getByIds(dto.id);
     if (value.count > 0)
       return {
         statusCode: HttpStatus.BAD_REQUEST,
@@ -62,7 +62,7 @@ export class UsersService {
 
   async updateRegistry(dto: UsersDto, id: any) {
     try {
-      const { affected } = await this.repository.update({ Id: id }, dto);
+      const { affected } = await this.repository.update({ id: id }, dto);
       if (affected == 1) {
         return {
           statusCode: HttpStatus.OK,
@@ -83,7 +83,7 @@ export class UsersService {
 
   async deleteRegistry(id: any) {
     try {
-      const { affected } = await this.repository.delete({ Id: id });
+      const { affected } = await this.repository.delete({ id: id });
       if (affected == 1) {
         return {
           statusCode: HttpStatus.OK,
