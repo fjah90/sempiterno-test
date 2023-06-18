@@ -3,17 +3,20 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { WinstonModule } from 'nest-winston/dist';
 import * as winston from 'winston';
 import * as path from 'path';
-import { ConfigModule } from '@nestjs/config';
-import { configService } from './shared/config/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import typeorm from './shared/config/typeorm';
 import { ApplicationModule } from './modules/application/application.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+      load: [typeorm]
     }),
-    TypeOrmModule.forRoot(
-      configService.getTypeOrmConfig(),),
+    TypeOrmModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => (configService.get('typeorm'))
+    }),
     WinstonModule.forRoot({
       level: 'debug',
       format: winston.format.combine(
@@ -43,9 +46,8 @@ import { ApplicationModule } from './modules/application/application.module';
         new winston.transports.Console({ level: 'debug' }),
       ],
     }),
-
     ApplicationModule,
-],
+  ],
   providers: [],
   controllers: [],
 
