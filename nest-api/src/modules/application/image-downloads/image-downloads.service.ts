@@ -45,7 +45,7 @@ export class ImageDownloadService {
             });
             response.data.pipe(writer);
 
-            const imgUrl = `${this.request.protocol}://${this.request.get('host')}/public/images/${fullName}`;
+            const imgUrl = `${this.request.protocol}://${this.request.get('host')}/images/${fullName}`;
 
             const res = {
                 statusCode: HttpStatus.OK,
