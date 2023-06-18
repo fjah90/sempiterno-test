@@ -1,10 +1,9 @@
-import { Column, Entity, PrimaryColumn } from "typeorm";
+import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 @Entity("documents", { schema: "public" })
-export class DocumentsEntity {
-  @PrimaryColumn({
+export class Documents {
+  @PrimaryGeneratedColumn({
     type: "integer",
-    name: "id",
-    precision: 32,
+    name: "id"
   })
   id: number;
 

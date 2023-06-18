@@ -10,11 +10,10 @@ import {
 } from "@nestjs/swagger";
 import { DocumentsDto } from "./dto/documents.dto";
 import { DocumentsService } from "./documents.service";
-
 import { Paginate, PaginateQuery } from "nestjs-paginate";
 
+@ApiTags("Documents")
 @Controller("documents")
-@ApiTags("documents")
 export class DocumentsController {
   constructor(private readonly service: DocumentsService) {}
 

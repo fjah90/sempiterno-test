@@ -4,21 +4,21 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { HttpStatus } from "@nestjs/common/enums";
 import { PaginateQuery } from "nestjs-paginate";
-import { CommonFilterService } from "src/shared/services/common-filter.service";
+import { CommonFilterService } from "../../../shared/services/common-filter.service";
 import { DocumentsDto } from "./dto/documents.dto";
-import { DocumentsEntity } from "./entity/documents.entity";
+import { Documents } from "../../infrastructure/entities/documents.entity";
 
 @Injectable()
 export class DocumentsService {
   constructor(
-    @InjectRepository(DocumentsEntity)
-    private repository: Repository<DocumentsEntity>,
+    @InjectRepository(Documents)
+    private repository: Repository<Documents>,
     private commonFilterService: CommonFilterService
   ) {}
 
   async getAll(query: PaginateQuery) {
     const queryBuilder = this.repository.createQueryBuilder("table");
-    return await this.commonFilterService.paginateFilter<DocumentsEntity>(
+    return await this.commonFilterService.paginateFilter<Documents>(
       query,
       this.repository,
       queryBuilder,
@@ -44,13 +44,6 @@ export class DocumentsService {
   }
 
   async createRegistry(dto: DocumentsDto) {
-    const value = await this.getByIds(dto.id);
-    if (value.count > 0)
-      return {
-        statusCode: HttpStatus.BAD_REQUEST,
-        message: ["Los ids ya fueron registrados"],
-      };
-
     const creation = await this.repository.save(dto);
 
     return {
