@@ -1,12 +1,11 @@
-import {Column, Entity, PrimaryColumn} from "typeorm";
+import {Column, Entity, PrimaryColumn, PrimaryGeneratedColumn} from "typeorm";
 @Entity("users", { schema: "auth" })
 
-export class UsersEntity {
+export class Users {
 
-    @PrimaryColumn({
+    @PrimaryGeneratedColumn({
         type: 'integer',
-        name: 'id',
-        precision: 32
+        name: 'id'
     })
     id: number;
 
@@ -22,7 +21,7 @@ export class UsersEntity {
         name: 'email',
         length: '255',
     })
-    eMail: string;
+    email: string;
 
     @Column({
         type: 'character varying',

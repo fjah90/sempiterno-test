@@ -1,24 +1,24 @@
 import { Injectable } from "@nestjs/common";
-import { CRUDMessages } from "src/shared/utils/message.enum";
+import { CRUDMessages } from "../../../shared/utils/message.enum";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { HttpStatus } from "@nestjs/common/enums";
 import { PaginateQuery } from "nestjs-paginate";
-import { CommonFilterService } from "src/shared/services/common-filter.service";
+import { CommonFilterService } from "../../../shared/services/common-filter.service";
 import { UsersDto } from "./dto/users.dto";
-import { UsersEntity } from "./entity/users.entity";
+import { Users } from "../../infrastructure/entities/users.entity";
 
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectRepository(UsersEntity)
-    private repository: Repository<UsersEntity>,
+    @InjectRepository(Users)
+    public repository: Repository<Users>,
     private commonFilterService: CommonFilterService
   ) {}
 
   async getAll(query: PaginateQuery) {
     const queryBuilder = this.repository.createQueryBuilder("table");
-    return await this.commonFilterService.paginateFilter<UsersEntity>(
+    return await this.commonFilterService.paginateFilter<Users>(
       query,
       this.repository,
       queryBuilder,
@@ -43,12 +43,31 @@ export class UsersService {
         };
   }
 
+  async getByEmail(email: string) {
+    const value: UsersDto = await this.repository.findOne({ where: { email: email } });
+    return value
+      ? {
+        statusCode: HttpStatus.OK,
+        message: [CRUDMessages.GetSuccess],
+        data: value,
+        count: 1,
+      }
+      : {
+        statusCode: HttpStatus.BAD_REQUEST,
+        message: [CRUDMessages.GetNotfound],
+        data: [],
+        count: 0,
+      };
+  }
+
   async createRegistry(dto: UsersDto) {
-    const value = await this.getByIds(dto.id);
+    const value = await this.getByEmail(dto.email);
+    console.log(value.count)
+    console.log(UsersDto)
     if (value.count > 0)
       return {
         statusCode: HttpStatus.BAD_REQUEST,
-        message: ["Los ids ya fueron registrados"],
+        message: ["El email ya fueron registrado"],
       };
 
     const creation = await this.repository.save(dto);

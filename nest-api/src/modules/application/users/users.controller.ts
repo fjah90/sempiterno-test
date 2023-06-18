@@ -1,5 +1,5 @@
 import { Controller } from "@nestjs/common";
-import { Body, Delete, Get, Put, Post, Param } from "@nestjs/common/decorators";
+import { Body, Delete, Get, Put, Post, Param, UseGuards } from "@nestjs/common/decorators";
 import {
   ApiBody,
   ApiOperation,
@@ -10,14 +10,15 @@ import {
 } from "@nestjs/swagger";
 import { UsersDto } from "./dto/users.dto";
 import { UsersService } from "./users.service";
-
 import { Paginate, PaginateQuery } from "nestjs-paginate";
+import { AuthGuard } from "../auth/auth.guard";
 
+@ApiTags("Users")
 @Controller("users")
-@ApiTags("users")
 export class UsersController {
   constructor(private readonly service: UsersService) {}
 
+  @UseGuards(AuthGuard)
   @ApiOperation({ summary: "Paginación de todos los registros" })
   @ApiResponse({
     status: 200,
@@ -46,6 +47,7 @@ export class UsersController {
     return await this.service.getAll(query);
   }
 
+  @UseGuards(AuthGuard)
   @ApiOperation({ summary: "Busca por su identificador" })
   @ApiParam({
     name: "id",
@@ -72,6 +74,7 @@ export class UsersController {
     return await this.service.createRegistry(dto);
   }
 
+  @UseGuards(AuthGuard)
   @ApiOperation({ summary: "Actualiza un registro" })
   @ApiBody({ type: UsersDto })
   @ApiParam({
@@ -88,6 +91,7 @@ export class UsersController {
     return await this.service.updateRegistry(dto, id);
   }
 
+  @UseGuards(AuthGuard)
   @ApiOperation({ summary: "Elimina un registro por identificador" })
   @ApiParam({
     name: "id",
