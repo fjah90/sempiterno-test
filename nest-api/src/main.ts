@@ -1,7 +1,6 @@
 import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { Logger, ValidationPipe } from '@nestjs/common';
-
+import { INestApplication, Logger, ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ResponseInterceptor } from './core/response.interceptor';
 
@@ -9,7 +8,7 @@ const docsEndpoint = '/api';
 const title = 'SEMPITERNO API';
 const description = 'API Integra las 5 respuestas de la prueba.';
 
-function configureSwagger(app): void {
+function configureSwagger(app: INestApplication): void {
   const config = new DocumentBuilder()
     .setTitle(title)
     .setDescription(description)
