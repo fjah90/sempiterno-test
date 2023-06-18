@@ -1,6 +1,6 @@
 const amqp = require('amqplib/callback_api');
 
-class RabbitMQService {
+class MessageService {
     constructor() {
         this.connection = null;
         this.channel = null;
@@ -66,4 +66,4 @@ class RabbitMQService {
     }
 }
 
-module.exports = RabbitMQService;
+module.exports = MessageService;

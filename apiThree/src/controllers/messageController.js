@@ -1,6 +1,6 @@
-const RabbitMQService = require('../services/messageServices');
+const MessageService = require('../services/messageServices');
 
-const rabbitMQService = new RabbitMQService();
+const rabbitMQService = new MessageService();
 
 const messageController = {};
 
