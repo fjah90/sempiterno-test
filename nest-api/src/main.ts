@@ -3,6 +3,8 @@ import { AppModule } from './app.module';
 import { INestApplication, Logger, ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ResponseInterceptor } from './core/response.interceptor';
+import { NestExpressApplication } from '@nestjs/platform-express'
+import { join } from 'path';
 
 const docsEndpoint = '/api';
 const title = 'SEMPITERNO API';
@@ -24,10 +26,10 @@ async function bootstrap() {
   const ms_port = process.env.MS_PORT_MICRO ? Number(process.env.MS_PORT_MICRO) : 3001;
 
   const logger = new Logger();
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.setGlobalPrefix('api/v1');
   app.enableCors({ origin: '*' });
-
+  app.useStaticAssets(join(__dirname, '..', 'public')); // deja accesible la carpeta publica
   const moduleRef = app.select(AppModule);
   const reflector = moduleRef.get(Reflector);
   app.useGlobalInterceptors(new ResponseInterceptor(reflector));

@@ -6,6 +6,7 @@ import * as path from 'path';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import typeorm from './shared/config/typeorm';
 import { ApplicationModule } from './modules/application/application.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
 
 @Module({
   imports: [
@@ -16,6 +17,9 @@ import { ApplicationModule } from './modules/application/application.module';
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => (configService.get('typeorm'))
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: path.join(__dirname, '..', 'public'),
     }),
     WinstonModule.forRoot({
       level: 'debug',
