@@ -12,4 +12,5 @@ export enum CRUDMessages {
   UpdateNotfound = 'El registro no existe.',
   UpdateError = 'Ocurrio un error al intentar actualizar el registro.',
   GenericException = 'Ocurrio un error.',
+  secret = 'No Use Este Valor. En Su Lugar, Cree Un Secreto Complejo Y Manténgalo Seguro Fuera Del Código Fuente.'
 }
