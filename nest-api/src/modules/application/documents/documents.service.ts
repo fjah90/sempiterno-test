@@ -44,6 +44,7 @@ export class DocumentsService {
   }
 
   async createRegistry(dto: DocumentsDto) {
+    console.log(dto)
     const creation = await this.repository.save(dto);
 
     return {

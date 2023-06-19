@@ -29,7 +29,6 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.setGlobalPrefix('api/v1');
   app.enableCors({ origin: '*' });
-  app.useStaticAssets(join(__dirname, '..', 'public')); // deja accesible la carpeta publica
   const moduleRef = app.select(AppModule);
   const reflector = moduleRef.get(Reflector);
   app.useGlobalInterceptors(new ResponseInterceptor(reflector));
@@ -45,6 +44,20 @@ async function bootstrap() {
       },
     }),
   );
+
+  // deja accesible la carpeta publica
+  app.useStaticAssets(join(__dirname, '..', 'public'));
+
+  // const app = await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, {
+  //   transport: Transport.RMQ,
+  //   options: {
+  //     urls: ['amqp://localhost:5672'],
+  //     queue: 'cats_queue',
+  //     queueOptions: {
+  //       durable: false
+  //     },
+  //   },
+  // });
 
   await app.startAllMicroservices();
   await app.listen(app_port);

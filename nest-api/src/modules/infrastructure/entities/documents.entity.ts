@@ -16,7 +16,7 @@ export class Documents {
 
   @Column({
     type: "text",
-    name: "content",
+    name: "contents",
   })
   contents: string;
 }

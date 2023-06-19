@@ -8,7 +8,7 @@ export class MessageService implements OnModuleInit {
     async onModuleInit() {
         await this.subscribeToMessages(this.queueName);
     }
-    private queueName = 'default_queue';
+    public queueName = 'default_queue';
 
     async publishMessage(dto: MessageDto) {
         const { queueName, text } = dto;

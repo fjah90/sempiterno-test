@@ -68,6 +68,7 @@ export class DocumentsController {
   })
   @Post()
   async createRegistry(@Body() dto: DocumentsDto) {
+    console.log(dto)
     return await this.service.createRegistry(dto);
   }
 

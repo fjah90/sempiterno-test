@@ -32,7 +32,7 @@ export class DocumentsDto {
   @Type(() => String)
   @IsString({ message: Message.STRING("$property") })
   @ApiProperty({
-    title: "content",
+    title: "contents",
     example: "Dato de tipo texto",
     required: false,
   })
